@@ -5,15 +5,23 @@
     <title>Script</title>
     <link rel="stylesheet" href="/static/css/mdui.css">
 </head>
-<body class="padding-top" style="background-color: #757575;overflow: hidden;">
+<body class="mdui-appbar-with-toolbar mdui-appbar-with-tab-larger"  style="background-color: #343638;overflow: hidden;">
     <div class="mdui-appbar mdui-appbar-fixed">
         <div class="mdui-toolbar mdui-color-indigo-700">
             <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">touch_app</i></a>
             <a href="javascript:;" class="mdui-typo-title">Script_Manager</a>
             <div class="mdui-toolbar-spacer"></div>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>
+            <div style="width: 400px;">
+                <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+                    <button class="mdui-textfield-icon mdui-btn mdui-btn-icon" mdui-tooltip="{content: '查找'}"><i class="mdui-icon material-icons">search</i></button>
+                    <input class="mdui-textfield-input" style="color: white;" type="text" placeholder="Search"/>
+                    <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">close</i></button>
+                </div>
+            </div>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '删除'}"><i class="mdui-icon material-icons">delete_sweep</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '刷新'}"><i class="mdui-icon material-icons">refresh</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}" mdui-menu="{target: '#script-menu', position: 'bottom', covered: false}"><i class="mdui-icon material-icons">more_vert</i></a>
+            #include("menu.html")
         </div>
         <div class="mdui-tab mdui-color-indigo-700" mdui-tab>
             <a href="#script-tab1" class="mdui-ripple mdui-ripple-white">
@@ -21,71 +29,25 @@
                 <label>Script_List</label>
             </a>
             <a href="#script-tab2" class="mdui-ripple mdui-ripple-white">
-                <i class="mdui-icon material-icons">favorite</i>
-                <label>favorites</label>
+                <i class="mdui-icon material-icons">brightness_high</i>
+                <label>Servers</label>
             </a>
             <a href="#script-tab3" class="mdui-ripple mdui-ripple-white">
-                <i class="mdui-icon material-icons">perm_contact_calendar</i>
-                <label>nearby</label>
+                <i class="mdui-icon material-icons">chat_bubble_outline</i>
+                <label>Output</label>
+            </a>
+            <a href="#script-tab4" class="mdui-ripple mdui-ripple-white">
+                <i class="mdui-icon material-icons">add_circle</i>
+                <label>Add</label>
             </a>
         </div>
     </div>
 
-    <!--<div class="mdui-panel" style="padding: 0 20px 0 20px;margin-top: 20px">-->
-        <!--<div class="mdui-panel-item mdui-panel-item-open" style="border-radius: 20px;">-->
-            <!--&lt;!&ndash;<div class="mdui-panel-item-header">Second</div>&ndash;&gt;-->
-            <!--<div class="mdui-panel-item-body" style="padding-top: 10px">-->
-                <!---->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <div class="mdui-table-fluid mdui-hoverable" style="margin: 160px 20px 20px 20px;border-radius: 10px">
-        <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
-            <thead>
-                <tr>
-                    <th>Dessert (100g serving)</th>
-                    <th class="mdui-table-col-numeric">Calories</th>
-                    <th class="mdui-table-col-numeric">Fat (g)</th>
-                    <th class="mdui-table-col-numeric">Carbs (g)</th>
-                    <th class="mdui-table-col-numeric">Protein (g)</th>
-                    <th class="mdui-table-col-numeric">Sodium (mg)</th>
-                    <th class="mdui-table-col-numeric">Calclum (%)</th>
-                    <th class="mdui-table-col-numeric">Lron (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Frozen yogurt</td>
-                    <td>159</td>
-                    <td>6.0</td>
-                    <td>24</td>
-                    <td>4.0</td>
-                    <td>87</td>
-                    <td>14%</td>
-                    <td>1%</td>
-                </tr>
-                <tr>
-                    <td>Ice cream sandwich</td>
-                    <td>237</td>
-                    <td>9.0</td>
-                    <td>37</td>
-                    <td>4.3</td>
-                    <td>129</td>
-                    <td>8%</td>
-                    <td>1%</td>
-                </tr>
-                <tr>
-                    <td>Eclair</td>
-                    <td>262</td>
-                    <td>16.0</td>
-                    <td>24</td>
-                    <td>6.0</td>
-                    <td>337</td>
-                    <td>6%</td>
-                    <td>7%</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="mdui-container-fluid">
+        #include("scriptTab1.html")
+        #include("scriptTab2.html")
+        #include("scriptTab3.html")
+        #include("scriptTab4.html")
     </div>
 
     <script src="/static/js/jquery.js"></script>
