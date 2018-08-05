@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Script</title>
     <link rel="stylesheet" href="/static/css/mdui.css">
+    <link rel="stylesheet" href="/static/css/input.css">
+    <link rel="stylesheet" href="/static/css/card.css">
 </head>
 <body class="mdui-appbar-with-toolbar mdui-appbar-with-tab-larger"  style="background-color: #343638;overflow: hidden;">
     <div class="mdui-appbar mdui-appbar-fixed">
@@ -24,19 +26,19 @@
             #include("menu.html")
         </div>
         <div class="mdui-tab mdui-color-indigo-700" mdui-tab>
-            <a href="#script-tab1" class="mdui-ripple mdui-ripple-white">
+            <a href="#script-list" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">format_list_bulleted</i>
                 <label>Script_List</label>
             </a>
-            <a href="#script-tab2" class="mdui-ripple mdui-ripple-white">
+            <a href="#script-server" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">brightness_high</i>
                 <label>Servers</label>
             </a>
-            <a href="#script-tab3" class="mdui-ripple mdui-ripple-white">
+            <a href="#script-output" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">chat_bubble_outline</i>
                 <label>Output</label>
             </a>
-            <a href="#script-tab4" class="mdui-ripple mdui-ripple-white">
+            <a href="#script-add" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">add_circle</i>
                 <label>Add</label>
             </a>
@@ -44,13 +46,25 @@
     </div>
 
     <div class="mdui-container-fluid">
-        #include("scriptTab1.html")
-        #include("scriptTab2.html")
-        #include("scriptTab3.html")
-        #include("scriptTab4.html")
+        #include("scriptList.html")
+        #include("scriptServer.html")
+        #include("scriptOutput.html")
+        #include("scriptAdd.html")
     </div>
 
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/mdui.js"></script>
+    <script src="/static/js/main.js"></script>
+
+    <script>
+        $('.share-btn').click(function(){
+            $(this).addClass("clicked");
+        });
+
+        $('.close').click(function (e) {
+            $('.clicked').removeClass('clicked');
+            e.stopPropagation();
+        });
+    </script>
 </body>
 </html>
