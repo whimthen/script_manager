@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/card.css">
 </head>
 <body class="mdui-appbar-with-toolbar mdui-appbar-with-tab-larger"  style="background-color: #343638;overflow: hidden;">
-    <div class="mdui-appbar mdui-appbar-fixed">
+    <div id="bar" class="mdui-appbar mdui-appbar-fixed">
         <div class="mdui-toolbar mdui-color-indigo-700">
             <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">touch_app</i></a>
             <a href="javascript:;" class="mdui-typo-title">Script_Manager</a>
@@ -55,16 +55,22 @@
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/mdui.js"></script>
     <script src="/static/js/main.js"></script>
-
     <script>
-        $('.share-btn').click(function(){
-            $(this).addClass("clicked");
-        });
+        $(document).ready(function () {
+            changeDivHeight();
+        })
 
-        $('.close').click(function (e) {
-            $('.clicked').removeClass('clicked');
-            e.stopPropagation();
-        });
+        //当浏览器窗口大小改变时，设置显示内容的高度
+        $(window).resize(function () {
+            changeDivHeight();
+        })
+
+        function changeDivHeight() {
+            // 浏览器可见区域的高
+            var bodyHeight = $(document).height();
+            var height = $("#bar").height();
+            $("#script_output_div").css("height", (bodyHeight - height - 45) + "px");
+        }
     </script>
 </body>
 </html>

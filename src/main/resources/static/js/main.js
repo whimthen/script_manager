@@ -38,3 +38,22 @@ function lodding() {
 function hideLodding() {
 
 }
+
+$('#sahre-script').click(function(){
+    $(this).addClass("clicked");
+});
+
+$('#sahre-server').click(function(){
+    $(this).addClass("clicked");
+});
+
+$('.script_close').click(function (e) {
+    $('#sahre-script').removeClass('clicked');
+    e.stopPropagation();
+});
+
+
+$('.server_close').click(function (e) {
+    $('#sahre-server').removeClass('clicked');
+    e.stopPropagation();
+});
