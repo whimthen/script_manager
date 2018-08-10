@@ -1,34 +1,45 @@
 <div id="script-server" style="margin: 20px 15px 0 15px;">
-    <div class="mdui-table-fluid mdui-hoverable" style="border-radius: 10px">
-        <table class="mdui-table mdui-table-selectable mdui-table-hoverable">
-            <thead>
-            <tr>
-                <th>Alias</th>
-                <th>Sodium (mg)</th>
-                <th>Calclum (%)</th>
-                <th>Lron (%)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Frozen yogurt</td>
-                <td>87</td>
-                <td>14%</td>
-                <td>1%</td>
-            </tr>
-            <tr>
-                <td>Ice cream sandwich</td>
-                <td>129</td>
-                <td>8%</td>
-                <td>1%</td>
-            </tr>
-            <tr>
-                <td>Eclair</td>
-                <td>337</td>
-                <td>6%</td>
-                <td>7%</td>
-            </tr>
-            </tbody>
-        </table>
+    <div id="server_table" class="mdui-table-fluid mdui-hoverable" style="border-radius: 10px">
+        <!--<table class="mdui-table mdui-table-selectable mdui-table-hoverable">-->
+            <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>Id</th>-->
+                    <!--<th>Alias</th>-->
+                    <!--<th>Host</th>-->
+                    <!--<th>Port</th>-->
+                    <!--<th>CreateTime</th>-->
+                    <!--<th>LastLoginTime</th>-->
+                <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody id="server-tobdy">-->
+                <!--<tr>-->
+                    <!--<td>Frozen yogurt</td>-->
+                    <!--<td>87</td>-->
+                    <!--<td>14%</td>-->
+                    <!--<td>1%</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Ice cream sandwich</td>-->
+                    <!--<td>129</td>-->
+                    <!--<td>8%</td>-->
+                    <!--<td>1%</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Eclair</td>-->
+                    <!--<td>337</td>-->
+                    <!--<td>6%</td>-->
+                    <!--<td>7%</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    </div>
+</div>
+
+<div class="mdui-dialog" id="editServer">
+    <div class="mdui-dialog-title">Are you sure?</div>
+    <div class="mdui-dialog-content">You'll lose all photos and media!</div>
+    <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" mdui-dialog-close>cancel</button>
+        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
     </div>
 </div>

@@ -56,12 +56,6 @@
     transform: rotate(-45deg);
     transform-origin: center center;
 }
-.share-btn .social {
-    width: 70%;
-    padding-left: 0;
-    list-style-type: none;
-    margin: 75px auto 0 auto;
-}
 .share-btn .social span {
     float: right;
 }
@@ -91,12 +85,6 @@
     font-size: 15px;
     overflow: hidden;
 }
-.clicked {
-    width: 500px;
-    height: 600px;
-    border-radius: 50px;
-    cursor: auto;
-}
 .share-btn.clicked .cta {
     left: 40px;
     top: 30px;
@@ -119,4 +107,79 @@
 }
 .share-btn.clicked .social li:nth-child(3) {
     transition-delay: .15s;
+}
+
+
+/* clicked-script */
+.clicked-script {
+    margin: 70px 10px 20px 0px;
+    width: 97%;
+    /*height: 500px;*/
+    border-radius: 50px;
+    cursor: auto;
+    z-index: 1;
+}
+.share-btn.clicked-script .cta {
+    left: 40px;
+    top: 30px;
+    transform: translateX(0) translateY(0);
+    color: rgba(64, 64, 64, 0.66);
+}
+.share-btn.clicked-script .close {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+.share-btn.clicked-script .social-script li {
+    transform: scale(1) translateX(0) translateY(0);
+    opacity: 1;
+}
+.share-btn.clicked-script .social-script li:nth-child(1) {
+    transition-delay: .05s;
+}
+.share-btn.clicked-script .social-script li:nth-child(2) {
+    transition-delay: .1s;
+}
+.share-btn.clicked-script .social-script li:nth-child(3) {
+    transition-delay: .15s;
+}
+.share-btn .social-script {
+    width: 90%;
+    list-style-type: none;
+    margin: 100px 0 0 2%;
+}
+
+/* clicked-server */
+.clicked-server {
+     width: 500px;
+     height: 450px;
+     border-radius: 50px;
+     cursor: auto;
+}
+.share-btn.clicked-server .cta {
+    left: 40px;
+    top: 30px;
+    transform: translateX(0) translateY(0);
+    color: #4d9d4d;
+}
+.share-btn.clicked-server .close {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+.share-btn.clicked-server .social-server li {
+    transform: scale(1) translateX(0) translateY(0);
+    opacity: 1;
+}
+.share-btn.clicked-server .social-server li:nth-child(1) {
+    transition-delay: .05s;
+}
+.share-btn.clicked-server .social-server li:nth-child(2) {
+    transition-delay: .1s;
+}
+.share-btn.clicked-server .social-server li:nth-child(3) {
+    transition-delay: .15s;
+}
+.share-btn .social-server {
+    width: 80%;
+    list-style-type: none;
+    margin: 100px 0 0 -12px;
 }

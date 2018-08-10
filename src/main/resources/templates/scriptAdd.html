@@ -1,40 +1,108 @@
 <div id="script-add" style="margin: 20px 15px 0 15px;">
-    <!--<div class="mdui-panel-item mdui-panel-item-open" style="border-radius: 10px;">
-        <div class="mdui-panel-item-body" style="padding-top: 20px;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">输入框</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-    </div>-->
-
+    <!-- Script -->
     <div class="share-btn mdui-hoverable" id="sahre-script" style="margin-left: -400px;">
         <span class="cta">Script</span>
         <div class="close ion-close-round script_close"><i class="mdui-icon material-icons">close</i></div>
-        <ul class="social">
-            <li>Facebook<span>12</span></li>
-            <li>Twitter<span>50</span></li>
-            <li>Google +<span>248</span></li>
-            <li>Facebook<span>12</span></li>
-            <li>Twitter<span>50</span></li>
-            <li>Google +<span>248</span></li>
+        <ul class="social-script">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Alias</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="alias" required lay-verify="required" placeholder="Please enter alias" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Host</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="host" required lay-verify="required" placeholder="Please enter Host" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Port</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="port" required lay-verify="required" placeholder="Please enter Host" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">User</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="user" required lay-verify="required" placeholder="Please enter User" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Password</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" required lay-verify="required" placeholder="Please enter Password" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">ActionScript</div>
+                </div>
+                <!--<div class="layui-form-item layui-form-text">-->
+                <!--<label class="layui-form-label">文本域</label>-->
+                <!--<div class="layui-input-block">-->
+                <!--<textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文本域</label>
+                    <div class="layui-input-block">
+                        <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">Just Add</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                    </div>
+                </div>
+            </form>
         </ul>
-        <div class="fake-input">http://www.jq22.com/</div>
+        <!--<div class="fake-input">http://www.jq22.com/</div>-->
     </div>
 
+    <!-- Server -->
     <div class="share-btn mdui-hoverable" id="sahre-server" style="margin-left: 400px">
         <span class="cta">Server</span>
         <div class="close ion-close-round server_close"><i class="mdui-icon material-icons">close</i></div>
-        <ul class="social">
-            <li>Facebook<span>12</span></li>
-            <li>Twitter<span>50</span></li>
-            <li>Google +<span>248</span></li>
-            <li>Facebook<span>12</span></li>
-            <li>Twitter<span>50</span></li>
-            <li>Google +<span>248</span></li>
+        <ul class="social-server">
+            <!--<form class="layui-form">-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Alias</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="server_alias" required lay-verify="required" placeholder="Please enter alias" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Host</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="server_host" required lay-verify="required" placeholder="Please enter Host" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Port</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="server_port" required lay-verify="required" placeholder="Please enter Host" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">User</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="server_user" required lay-verify="required" placeholder="Please enter User" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Password</label>
+                    <div class="layui-input-block">
+                        <input type="password" id="server_password" required lay-verify="required" placeholder="Please enter Password" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" onclick="addServer()">Just Add</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                    </div>
+                </div>
+            <!--</form>-->
         </ul>
-        <div class="fake-input">http://www.jq22.com/</div>
+        <!--<div class="fake-input">http://www.jq22.com/</div>-->
     </div>
 </div>

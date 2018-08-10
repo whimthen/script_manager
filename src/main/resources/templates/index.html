@@ -3,6 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Script</title>
+    <!-- HTML Meta Tags -->
+    <meta name="description" content="Script and server manager">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Topic Related Searching at SCRIPT.COM.">
+    <meta itemprop="description" content="Script and server manager">
+    <meta itemprop="image" content="https://images.unsplash.com/photo-1533640244273-3f1828ce5986?ixlib=rb-0.3.5&s=67085f3ae3031e79bd0b5d6275681b44&auto=format&fit=crop&w=750&q=80 750w">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="http://script.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Topic Related Searching at SCRIPT.COM.">
+    <meta property="og:description" content="Script and server manager">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1533640244273-3f1828ce5986?ixlib=rb-0.3.5&s=67085f3ae3031e79bd0b5d6275681b44&auto=format&fit=crop&w=750&q=80 750w">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Topic Related Searching at SCRIPT.COM.">
+    <meta name="twitter:description" content="Script and server manager">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1533640244273-3f1828ce5986?ixlib=rb-0.3.5&s=67085f3ae3031e79bd0b5d6275681b44&auto=format&fit=crop&w=750&q=80 750w">
+
+    <!-- Meta Tags Generated via http://heymeta.com -->
+
     <link rel="stylesheet" href="/static/css/mdui.css">
     <link rel="stylesheet" href="/static/css/input.css">
     <link rel="stylesheet" href="/static/css/card.css">
@@ -20,7 +43,7 @@
                     <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">close</i></button>
                 </div>
             </div>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '删除'}"><i class="mdui-icon material-icons">delete_sweep</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '删除'}" onclick="confirmDelete(function() { deleteItem() })"><i class="mdui-icon material-icons">delete_sweep</i></a>
             <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '刷新'}"><i class="mdui-icon material-icons">refresh</i></a>
             <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}" mdui-menu="{target: '#script-menu', position: 'bottom', covered: false}"><i class="mdui-icon material-icons">more_vert</i></a>
             #include("menu.html")
@@ -30,7 +53,7 @@
                 <i class="mdui-icon material-icons">format_list_bulleted</i>
                 <label>Script_List</label>
             </a>
-            <a href="#script-server" class="mdui-ripple mdui-ripple-white">
+            <a href="#script-server" class="mdui-ripple mdui-ripple-white" onclick="getServerByPage(this)">
                 <i class="mdui-icon material-icons">brightness_high</i>
                 <label>Servers</label>
             </a>
@@ -62,14 +85,25 @@
 
         //当浏览器窗口大小改变时，设置显示内容的高度
         $(window).resize(function () {
-            changeDivHeight();
+            changeOutputHeight();
         })
+
+        $(window).resize(function () {
+            var btnClass = $("#sahre-script").attr('class');
+            if (btnClass == "share-btn mdui-hoverable clicked-script") {
+                $("#sahre-script").height(changeDivHeight() - 50);
+            }
+        })
+
+        function changeOutputHeight() {
+            $("#script_output_div").css("height", (changeDivHeight() - 45) + "px");
+        }
 
         function changeDivHeight() {
             // 浏览器可见区域的高
             var bodyHeight = $(document).height();
-            var height = $("#bar").height();
-            $("#script_output_div").css("height", (bodyHeight - height - 45) + "px");
+            var divHeight = $("#bar").height();
+            return bodyHeight - divHeight;
         }
     </script>
 </body>
