@@ -3,10 +3,12 @@ package io.github.whimthen.script.service;
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Inject;
 import com.blade.kit.StringKit;
+import io.github.whimthen.script.cache.SessionManager;
 import io.github.whimthen.script.dao.ServerDao;
 import io.github.whimthen.script.entity.Connect;
 import io.github.whimthen.script.entity.ConnectRes;
 import io.github.whimthen.script.entity.Page;
+import io.github.whimthen.script.entity.SSHInfo;
 import io.github.whimthen.script.enums.StatusEnum;
 import io.github.whimthen.script.enums.SysCode;
 import io.github.whimthen.script.exception.ScriptException;
@@ -51,7 +53,7 @@ public class ServerService {
         if (StringKit.isBlank(id)) {
             throw new ScriptException(SysCode.PARAM_MISSING);
         }
-        Connect connect = serverDao.getById(id);
+        Connect connect = ServerDao.getById(id);
         return connect;
     }
 
@@ -59,11 +61,22 @@ public class ServerService {
         if (GlobalUtils.isAnyBlank(connect.getHost(), connect.getUser(), connect.getPassword(), connect.getAlias()) || connect.getPort() == null) {
             throw new ScriptException(SysCode.PARAM_MISSING);
         }
-        Connect exitsConnect = serverDao.getById(String.valueOf(connect.getId()));
+        Connect exitsConnect = ServerDao.getById(String.valueOf(connect.getId()));
         if (!exitsConnect.getPassword().equals(connect.getPassword())) {
             connect.setPassword(EncryptUtils.dbEncrypt(connect.getPassword(), connect.getUser()));
         }
         serverDao.editServer(connect.setUpdateTime(System.currentTimeMillis()));
+    }
+
+    public static SSHInfo getSIById(String serverId) throws ScriptException {
+        if (StringKit.isBlank(serverId)) {
+            throw new ScriptException(SysCode.PARAM_MISSING);
+        }
+        Connect connect = ServerDao.getById(serverId);
+        if (connect != null) {
+            return SSHInfo.newInstance().setHost(connect.getHost()).setUser(connect.getUser()).setPassword(connect.getPassword()).setPort(connect.getPort());
+        }
+        return null;
     }
 
 }

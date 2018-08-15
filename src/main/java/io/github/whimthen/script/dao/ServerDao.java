@@ -51,7 +51,7 @@ public class ServerDao {
         }
     }
 
-    public Connect getById(String id) {
+    public static Connect getById(String id) {
         return select().from(Connect.class).byId(id);
     }
 

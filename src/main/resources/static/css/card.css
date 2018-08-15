@@ -5,7 +5,7 @@
 /* Social color */
 /* Input */
 /* Mixins */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+/*@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);*/
 .center {
     top: 50%;
     left: 50%;
@@ -182,4 +182,16 @@
     width: 80%;
     list-style-type: none;
     margin: 100px 0 0 -12px;
+}
+
+#script-output #script_output_div a:link {
+    color: #ffffff;
+}
+
+/*#script-output #script_output_div a:hover {*/
+    /*color: #ff0312;*/
+/*}*/
+
+#script-output #script_output_div a:active {
+    color: #ff0312;
 }

@@ -57,10 +57,10 @@
                 <i class="mdui-icon material-icons">brightness_high</i>
                 <label>Servers</label>
             </a>
-            <a href="#script-output" class="mdui-ripple mdui-ripple-white">
-                <i class="mdui-icon material-icons">chat_bubble_outline</i>
-                <label>Output</label>
-            </a>
+            <!--<a href="#script-output" class="mdui-ripple mdui-ripple-white">-->
+                <!--<i class="mdui-icon material-icons">chat_bubble_outline</i>-->
+                <!--<label>Output</label>-->
+            <!--</a>-->
             <a href="#script-add" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">add_circle</i>
                 <label>Add</label>
@@ -71,7 +71,6 @@
     <div class="mdui-container-fluid">
         #include("scriptList.html")
         #include("scriptServer.html")
-        #include("scriptOutput.html")
         #include("scriptAdd.html")
     </div>
 
@@ -102,8 +101,12 @@
         function changeDivHeight() {
             // 浏览器可见区域的高
             var bodyHeight = $(document).height();
-            var divHeight = $("#bar").height();
+            var divHeight = barHeight();
             return bodyHeight - divHeight;
+        }
+
+        function barHeight() {
+            return $("#bar").height();
         }
     </script>
 </body>

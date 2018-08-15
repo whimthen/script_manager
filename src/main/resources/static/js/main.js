@@ -86,6 +86,76 @@ function get(url, data, isAsync) {
     });
 }
 
+var serverWs;
+
+function connectServer(serverId) {
+    /**
+     * CONNECTING：值为0，表示正在连接。
+     * OPEN：值为1，表示连接成功，可以通信了。
+     * CLOSING：值为2，表示连接正在关闭。
+     * CLOSED：值为3，表示连接已经关闭，或者打开连接失败。
+     */
+    if (serverWs == undefined || serverWs == null || serverWs.readyState == 3) {
+        serverWs = createIfDisConnect(serverWs, "/server/connect", serverId);
+    }
+
+    changeOutputHeight();
+    $("#script-output").css("display", "block");
+    $("#server_table").css("display", "none");
+
+    var wsObj = {serverId: serverId, command: "ll"};
+    serverWs.onopen = function (event) {
+        sendTextIfConnect(serverWs, wsObj);
+    }
+    serverWs.onmessage = function (event) {
+        if(typeof event.data === String) {
+            console.log("Received data string");
+        }
+
+        if(event.data instanceof ArrayBuffer){
+            var buffer = event.data;
+            console.log("Received arraybuffer");
+        }
+    }
+    serverWs.onclose = function (event) {
+        alertWarnMsg("Server WebSocket is closed");
+    }
+    serverWs.onerror = function (event) {
+        alertErrorMsg("Server WebSocket is Unexpected shutdown")
+    }
+}
+
+function sendTextIfConnect(ws, obj) {
+    if (checkWsStatus(ws, 1)) {
+        ws.send(JSON.stringify(obj));
+    }
+}
+
+function createIfDisConnect(ws, url) {
+    if (ws == null) {
+        return new WebSocket("ws://127.0.0.1:6789" + url);
+    }
+}
+
+function checkWsStatus(ws, state) {
+    if (ws != null && ws.readyState == state) {
+        return true;
+    }
+    return false;
+}
+
+function closeIfConnect(ws) {
+    if (checkWsStatus(ws, 1)){
+        ws.close();
+    }
+}
+
+function closeConnServer(ws) {
+    $("#server_table").css("display", "block");
+    $("#script-output").css("display", "none");
+    // closeIfConnect(ws);
+}
+
 function deleteItem() {
     var tabId = $(".mdui-tab-active").attr("href").split("-")[1];
     if (tabId == "list") {
@@ -154,7 +224,7 @@ function getServerByPage() {
                     "<td>" + convertTime(result.list[i].lastLoginTime) + "</td>" +
                     "<td>" +
                         "<button class=\"mdui-btn mdui-btn-dense mdui-color-indigo-600 mdui-ripple mdui-hoverable\" onclick='openEditServer(" + result.list[i].id + ")'><i class=\"mdui-icon material-icons\">edit</i>&nbsp;edit</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
-                        "<button class=\"mdui-btn mdui-btn-dense mdui-color-green-500 mdui-ripple mdui-hoverable\"><i class=\"mdui-icon material-icons\">play_arrow</i>&nbsp;connect</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "<button class=\"mdui-btn mdui-btn-dense mdui-color-green-500 mdui-ripple mdui-hoverable\" onclick='connectServer(" + result.list[i].id + ")'><i class=\"mdui-icon material-icons\">play_arrow</i>&nbsp;connect</button>" + "&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<button class=\"mdui-btn mdui-btn-dense mdui-color-red-600 mdui-ripple mdui-hoverable\" onclick='confirmDelete(function () { deleteById(" + result.list[i].id + "); })'><i class=\"mdui-icon material-icons\">delete_forever</i>&nbsp;delete</button>" +
                     "</td>" +
                 "</tr>";
@@ -230,7 +300,7 @@ function editServer() {
 }
 
 function confirmDelete(func) {
-    mdui.confirm('数据无价, 请谨慎删除! 如确认无误, 请点击OK.', '你想好了吗? ',
+    mdui.confirm('数据无价, 请谨慎删除! 如确认无误, 请点击<strong>OK</strong>.', '你想好了吗? ',
         func,
         null
     );

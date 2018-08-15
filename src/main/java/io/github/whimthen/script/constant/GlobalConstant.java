@@ -10,6 +10,8 @@ import io.github.biezhi.anima.Anima;
  */
 public class GlobalConstant {
 
-    public static Anima anima;
+    public static String SERVER_LOG = "server.log";
+
+    public static String JSCH_CHANNEL_TYPE_SHELL = "shell";
 
 }

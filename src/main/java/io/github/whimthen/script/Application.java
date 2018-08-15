@@ -1,6 +1,7 @@
 package io.github.whimthen.script;
 
 import com.blade.Blade;
+import io.github.whimthen.script.handler.ServerHandler;
 
 /**
  * @project: script_manager
@@ -12,6 +13,7 @@ public class Application {
 
     public static void main(String[] args) {
         Blade.of()
+             .webSocket("/server/connect", new ServerHandler())
              .start(Application.class, args);
     }
 
