@@ -6,7 +6,6 @@ import com.blade.mvc.handler.WebSocketHandler;
 import com.blade.mvc.websocket.WebSocketContext;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import io.github.whimthen.script.cache.SessionManager;
 import io.github.whimthen.script.constant.GlobalConstant;
 import io.github.whimthen.script.entity.SSHInfo;
@@ -15,10 +14,12 @@ import io.github.whimthen.script.exception.ScriptException;
 import io.github.whimthen.script.service.ServerService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.Map;
 
 /**
@@ -32,35 +33,41 @@ public class ServerHandler implements WebSocketHandler {
 
     private Channel channel;
 
+    private String filePath = ServerHandler.class.getClassLoader().getResource("").getPath() + GlobalConstant.SERVER_LOG;
+
     @Override
     public void onConnect(WebSocketContext webSocketContext) {
-        try {
-            String serverId = webSocketContext.getReqText();
-            if (StringKit.isNotBlank(serverId)) {
-                SSHInfo sshInfo = ServerService.getSIById(serverId);
-                if (sshInfo != null) {
-                    Session session = SessionManager.put(sshInfo);
-                    channel = session.openChannel(GlobalConstant.JSCH_CHANNEL_TYPE_SHELL);
-                    execCommand("");
-                }
-            }
-        } catch (Exception ex) {
-            log.error("=====>>>>> Connect Fail", ex);
-        }
+
     }
 
     @Override
     public void onText(WebSocketContext webSocketContext) {
+        Map map = JsonKit.formJson(webSocketContext.getReqText(), Map.class);
+        String serverId = map.get("serverId").toString();
         try {
-            Map map = JsonKit.formJson(webSocketContext.getReqText(), Map.class);
+            if (StringKit.isBlank(serverId)) {
+                throw new ScriptException(SysCode.PARAM_MISSING);
+            }
             if (channel != null && channel.isConnected()) {
                 channel.disconnect();
             }
-            if (map.get("serverId") == null) {
-                throw new ScriptException(SysCode.PARAM_MISSING);
+            SSHInfo sshInfo = ServerService.getSIById(serverId);
+            if ((channel == null || !channel.isConnected()) && sshInfo != null) {
+                channel = SessionManager.getSession(sshInfo).openChannel(GlobalConstant.JSCH_CHANNEL_TYPE_SHELL);
             }
-            channel = SessionManager.getSession(ServerService.getSIById(map.get("serverId").toString())).openChannel(GlobalConstant.JSCH_CHANNEL_TYPE_SHELL);
-            execCommand(map.get("command") + "\n");
+            String command = map.get("command").toString();
+            if (StringKit.isNotBlank(command)) {
+                command += "\n";
+            }
+            execCommand(command);
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                if (reader.read() != -1) {
+                    line += '\n';
+                }
+                webSocketContext.message(line.replaceAll("\\[01;\\d{2}m", "").replaceAll("\\[0m", ""));
+            }
         } catch (Exception ex) {
             log.error("=====>>>>> Command processing failed", ex);
         }
@@ -72,14 +79,15 @@ public class ServerHandler implements WebSocketHandler {
     }
 
     public void execCommand(String command) throws FileNotFoundException, JSchException {
-        ByteArrayInputStream in = new ByteArrayInputStream(command.getBytes());
-        System.setIn(in);
-        channel.setInputStream(System.in);
-        String filePath = ServerHandler.class.getClassLoader().getResource("").getPath() + GlobalConstant.SERVER_LOG;
-        File file = new File(filePath);
-        FileOutputStream fileOut = new FileOutputStream(file, false);
-        channel.setOutputStream(fileOut);
-        channel.connect(3 * 1000);
+        if (channel != null) {
+//            ByteArrayInputStream inputStream = new ByteArrayInputStream(command.getBytes());
+//            System.setIn(inputStream);
+            channel.setInputStream(new ByteArrayInputStream(command.getBytes()));
+            File file = new File(filePath);
+            FileOutputStream fileOut = new FileOutputStream(file, false);
+            channel.setOutputStream(fileOut);
+            channel.connect(3 * 1000);
+        }
     }
 
 }

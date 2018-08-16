@@ -61,17 +61,17 @@
                 <!--<i class="mdui-icon material-icons">chat_bubble_outline</i>-->
                 <!--<label>Output</label>-->
             <!--</a>-->
-            <a href="#script-add" class="mdui-ripple mdui-ripple-white">
+            <!--<a href="#script-add" class="mdui-ripple mdui-ripple-white">
                 <i class="mdui-icon material-icons">add_circle</i>
                 <label>Add</label>
-            </a>
+            </a>-->
+            #include("scriptAdd.html")
         </div>
     </div>
 
     <div class="mdui-container-fluid">
         #include("scriptList.html")
         #include("scriptServer.html")
-        #include("scriptAdd.html")
     </div>
 
     <script src="/static/js/jquery.js"></script>
@@ -80,11 +80,16 @@
     <script>
         $(document).ready(function () {
             changeDivHeight();
+
+            get("/base/getProp", null, false);
+            host = result.host;
+            port = result.port;
         })
 
         //当浏览器窗口大小改变时，设置显示内容的高度
         $(window).resize(function () {
             changeOutputHeight();
+            $("#server_output").css("height", serverOutputHeight() - 30)
         })
 
         $(window).resize(function () {
@@ -93,21 +98,6 @@
                 $("#sahre-script").height(changeDivHeight() - 50);
             }
         })
-
-        function changeOutputHeight() {
-            $("#script_output_div").css("height", (changeDivHeight() - 45) + "px");
-        }
-
-        function changeDivHeight() {
-            // 浏览器可见区域的高
-            var bodyHeight = $(document).height();
-            var divHeight = barHeight();
-            return bodyHeight - divHeight;
-        }
-
-        function barHeight() {
-            return $("#bar").height();
-        }
     </script>
 </body>
 </html>

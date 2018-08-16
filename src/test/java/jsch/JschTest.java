@@ -61,7 +61,7 @@ public class JschTest extends TestCase {
     }
 
     public static void inOutput() throws FileNotFoundException, JSchException {
-        ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("cd chenxh\n".getBytes());
         System.setIn(in);
         channel.setInputStream(System.in);
         File file = new File(JschTest.class.getClassLoader().getResource("").getPath() + "server.log");

@@ -1,4 +1,6 @@
 var result = null;
+var host = null;
+var port = null;
 
 /**
  * POST 请求
@@ -89,6 +91,12 @@ function get(url, data, isAsync) {
 var serverWs;
 
 function connectServer(serverId) {
+    get("/serverController/getById", { id: serverId }, false);
+
+    /*if (serverWs != undefined && serverWs != null && serverWs.readyState == 1) {
+        serverWs.close();
+        serverWs = null;
+    }*/
     /**
      * CONNECTING：值为0，表示正在连接。
      * OPEN：值为1，表示连接成功，可以通信了。
@@ -99,30 +107,30 @@ function connectServer(serverId) {
         serverWs = createIfDisConnect(serverWs, "/server/connect", serverId);
     }
 
-    changeOutputHeight();
-    $("#script-output").css("display", "block");
-    $("#server_table").css("display", "none");
-
-    var wsObj = {serverId: serverId, command: "ll"};
+    var wsObj = {serverId: serverId, command: ""};
     serverWs.onopen = function (event) {
         sendTextIfConnect(serverWs, wsObj);
     }
     serverWs.onmessage = function (event) {
-        if(typeof event.data === String) {
-            console.log("Received data string");
-        }
-
-        if(event.data instanceof ArrayBuffer){
-            var buffer = event.data;
-            console.log("Received arraybuffer");
-        }
+        serverAppend(event.data);
     }
     serverWs.onclose = function (event) {
-        alertWarnMsg("Server WebSocket is closed");
+        // $("#server_output").val("");
+        alertWarnMsg(result.alias + " is Disconnect");
     }
     serverWs.onerror = function (event) {
         alertErrorMsg("Server WebSocket is Unexpected shutdown")
     }
+
+    changeOutputHeight();
+    $("#server_output").css("height", serverOutputHeight() - 30)
+    $("#script-output").css("display", "block");
+    $("#server_table").css("display", "none");
+}
+
+function serverAppend(data) {
+    $("#server_output").append(data);
+    $("#server_output").focus();
 }
 
 function sendTextIfConnect(ws, obj) {
@@ -132,8 +140,8 @@ function sendTextIfConnect(ws, obj) {
 }
 
 function createIfDisConnect(ws, url) {
-    if (ws == null) {
-        return new WebSocket("ws://127.0.0.1:6789" + url);
+    if (ws == null || ws.readyState == 3) {
+        return new WebSocket("ws://" + host + ":" + port + url);
     }
 }
 
@@ -147,6 +155,7 @@ function checkWsStatus(ws, state) {
 function closeIfConnect(ws) {
     if (checkWsStatus(ws, 1)){
         ws.close();
+        ws = null;
     }
 }
 
@@ -401,24 +410,53 @@ function alertWarnMsg(text) {
     mdui.alert(text, "哎呀, 你这人 🤓", undefined, options);
 }
 
+function serverOutputHeight() {
+    return $("#script_output_div").height();
+}
+
+function changeOutputHeight() {
+    $("#script_output_div").css("height", (changeDivHeight() - 45) + "px");
+}
+
+function changeDivHeight() {
+    // 浏览器可见区域的高
+    var bodyHeight = $(document).height();
+    var divHeight = barHeight();
+    return bodyHeight - divHeight;
+}
+
+function barHeight() {
+    return $("#bar").height();
+}
+
 $('#sahre-script').click(function(){
     $(this).addClass("clicked-script");
     $(this).removeAttr("style");
+    $(this).css("position", "fixed");
     $(this).height(changeDivHeight() - 50);
 });
 
 $('#sahre-server').click(function(){
     $(this).addClass("clicked-server");
+    $(this).css("position", "fixed");
+    $(this).css("margin", "-40px 690px");
+    $(this).css("top", "400px");
 });
 
 $('.script_close').click(function (e) {
     $("#sahre-script").removeClass('clicked-script');
     $("#sahre-script").removeAttr("style");
-    $("#sahre-script").css("margin-left", "-400px");
+    // $("#sahre-script").css("margin-left", "-400px");
+    $("#sahre-script").css("margin", "0px 750px");
+    $("#sahre-script").css("z-index", "2000");
     e.stopPropagation();
 });
 
 $('.server_close').click(function (e) {
     $('#sahre-server').removeClass('clicked-server');
+    $("#sahre-server").css("margin", "0px 880px");
+    $("#sahre-server").css("z-index", "2000");
+    $("#sahre-server").css("position", "absolute");
+    $("#sahre-server").css("top", "35px");
     e.stopPropagation();
 });

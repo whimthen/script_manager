@@ -1697,7 +1697,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #666 !important
 }
 
-.layui-badge-rim, .layui-colla-content, .layui-colla-item, .layui-collapse, .layui-elem-field, .layui-form-pane .layui-form-item[pane], .layui-form-pane .layui-form-label, .layui-input, .layui-layedit, .layui-layedit-tool, .layui-quote-nm, .layui-select, .layui-tab-bar, .layui-tab-card, .layui-tab-title, .layui-tab-title .layui-this:after, .layui-textarea {
+.layui-badge-rim, .layui-colla-content, .layui-colla-item, .layui-collapse, .layui-elem-field, .layui-form-pane .layui-form-item[pane], .layui-form-pane .layui-form-label, .layui-input, .layui-layedit, .layui-layedit-tool, .layui-quote-nm, .layui-select, .layui-tab-bar, .layui-tab-card, .layui-tab-title, .layui-tab-title .layui-this:after {
     border-color: #0b92e6
 }
 
@@ -1915,7 +1915,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%
 }
 
-.layui-input, .layui-select, .layui-textarea {
+.layui-input, .layui-select {
     height: 38px;
     line-height: 1.3;
     line-height: 38px \9;
@@ -1929,26 +1929,37 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.3
 }
 
-.layui-input, .layui-textarea {
+.layui-input {
     display: block;
     width: 100%;
     padding-left: 10px
 }
 
-.layui-input:hover, .layui-textarea:hover {
+.layui-input:hover {
     border-color: #fea400 !important
 }
 
-.layui-input:focus, .layui-textarea:focus {
+.layui-input:focus {
     border-color: #00b820 !important
 }
 
 .layui-textarea {
-    min-height: 100px;
+    min-height: 300px;
     height: auto;
-    line-height: 20px;
-    padding: 6px 10px;
-    resize: vertical
+    line-height: 17px;
+    padding: 10px 1px;
+    resize: none;
+    background-color: #27292B;
+    color: white;
+    width: 100%;
+    margin: 15px 0 15px 15px;
+    font-size: 14px;
+    border-color: #27292B;
+    font-family: Monospaced;
+}
+
+#server_output::-webkit-scrollbar {
+    display: none;
 }
 
 .layui-select {
@@ -1984,7 +1995,8 @@ h1, h2, h3, h4, h5, h6 {
     width: 80px;
     font-weight: 400;
     line-height: 20px;
-    text-align: right
+    text-align: right;
+    color: #000;
 }
 
 .layui-form-label-col {
