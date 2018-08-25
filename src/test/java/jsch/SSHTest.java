@@ -200,7 +200,7 @@ public class SSHTest {
 //        System.out.println("shell 1 执行了"+shell1+"ms");
 //        System.out.println("shell 2 执行了"+shell2+"ms");
 //        System.out.println("================");
-        int cmd1 = ssh.exec("ls -l\n");
+        int cmd1 = ssh.exec("");
         ssh.close();
     }
 

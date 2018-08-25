@@ -14,4 +14,6 @@ public class GlobalConstant {
 
     public static String JSCH_CHANNEL_TYPE_SHELL = "shell";
 
+    public static String JSCH_CHANNEL_TYPE_EXEC = "exec";
+
 }

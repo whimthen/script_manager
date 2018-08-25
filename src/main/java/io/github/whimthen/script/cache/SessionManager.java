@@ -28,10 +28,6 @@ public class SessionManager {
         sessionManager = new SessionManager();
     }
 
-    public static SessionManager getInstance() {
-        return sessionManager;
-    }
-
     public static Session put(SSHInfo sshInfo) throws Exception {
         checkSSHInfo(sshInfo);
         return createSession(sshInfo);
